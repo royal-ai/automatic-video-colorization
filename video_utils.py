@@ -29,7 +29,7 @@ ARGS = parser.parse_args()
 def video2frames(video_dir, out_frames_dir="None"):
     os.makedirs(out_frames_dir, exist_ok=True)
     video = VideoFileClip(video_dir)
-    #audio = video.audio
+    audio = video.audio
     if audio is not None:
         audio.write_audiofile(out_frames_dir + ".mp3")
         audio.release()
