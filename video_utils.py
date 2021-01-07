@@ -29,8 +29,10 @@ ARGS = parser.parse_args()
 def video2frames(video_dir, out_frames_dir="None"):
     os.makedirs(out_frames_dir, exist_ok=True)
     video = VideoFileClip(video_dir)
-    audio = video.audio
-    audio.write_audiofile(out_frames_dir + ".mp3")
+    #audio = video.audio
+    if audio is not None:
+        audio.write_audiofile(out_frames_dir + ".mp3")
+        audio.release()
 
     vidcap = cv2.VideoCapture(video_dir)
     # Find OpenCV version
@@ -60,7 +62,7 @@ def video2frames(video_dir, out_frames_dir="None"):
         cv2.imwrite("{}/frame{:04d}.png".format(out_frames_dir, count), image)     # save frame as JPEG file
         count += 1
     vidcap.release()
-    audio.release()
+
     print("Fps is {}".format(fps))
     return int(fps)
 
